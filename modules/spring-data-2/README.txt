@@ -3,7 +3,7 @@ Apache Ignite Spring Module
 
 Apache Ignite Spring Data module provides an integration with Spring Data framework.
 
-To enable Spring Data module when starting a standalone node, move 'optional/ignite-spring-data' folder to
+To enable Spring Data module when starting a standalone node, move 'optional/ignite-spring-data-2' folder to
 'libs' folder before running 'ignite.{sh|bat}' script. The content of the module folder will
 be added to classpath in this case.
 
@@ -23,7 +23,7 @@ interested in):
         ...
         <dependency>
             <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-spring-data</artifactId>
+            <artifactId>ignite-spring-data-2</artifactId>
             <version>${ignite.version}</version>
         </dependency>
         ...
