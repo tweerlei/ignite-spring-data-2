@@ -1,2 +1,5 @@
 target
 pom-installed.xml
+.classpath
+.project
+.settings

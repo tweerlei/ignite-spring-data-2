@@ -16,10 +16,11 @@
  */
 package org.apache.ignite.springdata.repository.support;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.IgniteConfiguration;
@@ -82,7 +83,7 @@ public class IgniteRepositoryFactory extends RepositoryFactorySupport {
     }
 
     /** {@inheritDoc} */
-    @Override public <T, ID extends Serializable> EntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
+    @Override public <T, ID> EntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
         return new AbstractEntityInformation<T, ID>(domainClass) {
             @Override public ID getId(T entity) {
                 return null;
@@ -124,10 +125,10 @@ public class IgniteRepositoryFactory extends RepositoryFactorySupport {
     }
 
     /** {@inheritDoc} */
-    @Override protected QueryLookupStrategy getQueryLookupStrategy(final QueryLookupStrategy.Key key,
+    @Override protected Optional<QueryLookupStrategy> getQueryLookupStrategy(final QueryLookupStrategy.Key key,
         EvaluationContextProvider evaluationCtxProvider) {
 
-        return new QueryLookupStrategy() {
+        return Optional.of(new QueryLookupStrategy() {
             @Override public RepositoryQuery resolveQuery(final Method mtd, final RepositoryMetadata metadata,
                 final ProjectionFactory factory, NamedQueries namedQueries) {
 
@@ -149,7 +150,7 @@ public class IgniteRepositoryFactory extends RepositoryFactorySupport {
                 return new IgniteRepositoryQuery(metadata, IgniteQueryGenerator.generateSql(mtd, metadata), mtd,
                     factory, ignite.getOrCreateCache(repoToCache.get(metadata.getRepositoryInterface())));
             }
-        };
+        });
     }
 
     /**

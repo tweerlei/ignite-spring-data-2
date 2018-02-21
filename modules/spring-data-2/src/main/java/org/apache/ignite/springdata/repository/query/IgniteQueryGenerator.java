@@ -91,9 +91,14 @@ public class IgniteQueryGenerator {
      */
     public static StringBuilder addSorting(StringBuilder sql, Sort sort) {
         if (sort != null) {
-            sql.append(" ORDER BY ");
-
+        	boolean added = false;
+        	
             for (Sort.Order order : sort) {
+            	if (!added) {
+            		sql.append(" ORDER BY ");
+            		added = true;
+            	}
+
                 sql.append(order.getProperty()).append(" ").append(order.getDirection());
 
                 if (order.getNullHandling() != Sort.NullHandling.NATIVE) {
@@ -110,7 +115,9 @@ public class IgniteQueryGenerator {
                 sql.append(", ");
             }
 
-            sql.delete(sql.length() - 2, sql.length());
+            if (added) {
+            	sql.delete(sql.length() - 2, sql.length());
+            }
         }
 
         return sql;

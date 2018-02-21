@@ -30,7 +30,7 @@
         <relativePath>../../parent</relativePath>
     </parent>
 
-    <artifactId>ignite-spring-data</artifactId>
+    <artifactId>ignite-spring-data-2</artifactId>
     <version>2.3.0</version>
     <url>http://ignite.apache.org</url>
 
